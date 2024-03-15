@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#game {
+    margin-bottom: 20px;
+}
+
+.question {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+label {
+    display: block;
+    margin: 10px 0;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+#submit {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit:disabled {
+    background-color: #cccccc;
+}
+
+#score {
+    margin-top: 20px;
+}
