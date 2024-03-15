@@ -19,17 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('copyScore').addEventListener('click', copyScoreToClipboard);
 });
 
+function generateSeedFromDate() {
+    const now = new Date();
+    return now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+}
+
 function selectRandomQuestionsBasedOnDate(data, count) {
-    let seed = (new Date()).getDate(); // Use current date as seed
-    const pseudoRandom = (() => {
-        let localSeed = seed; // Local variable for manipulation
+    const seed = generateSeedFromDate();
+    let pseudoRandom = (() => {
+        let localSeed = seed;
         return () => {
-            const x = Math.sin(localSeed++) * 10000; // Increment local variable instead
-            return x - Math.floor(x);
+            localSeed = (localSeed * 9301 + 49297) % 233280; // Example LCG parameters
+            return localSeed / 233280;
         };
     })();
-    const shuffled = [...data].sort(() => 0.5 - pseudoRandom());
-    return shuffled.slice(0, count);
+    
+    const shuffled = data.map((value, index) => ({ value, sort: pseudoRandom() }))
+                         .sort((a, b) => a.sort - b.sort)
+                         .map(({ value }) => value)
+                         .slice(0, count);
+
+    return shuffled;
 }
 
 function displayQuestions(questions) {
